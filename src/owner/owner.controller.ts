@@ -45,7 +45,7 @@ export class OwnerController {
     return this.ownerService.updateOwner(id, updateOwnerDto);
   }
 
-  @ApiOperation({ summary: 'Delete an owner ' })
+  @ApiOperation({ summary: 'Delete an owner and their cats(If have)' })
   @Delete('/detele/:id')
   async deleteOwner(@Param('id') id: string): Promise<Owner> {
     return this.ownerService.deleteOwner(id);

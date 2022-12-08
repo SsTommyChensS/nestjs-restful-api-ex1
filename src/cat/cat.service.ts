@@ -57,6 +57,10 @@ export class CatService {
     throw new HttpException('Cat not found to remove', HttpStatus.NOT_FOUND);
   }
 
+  async deleteCatsByOwner(owner_id: string) {
+    await this.catModel.remove({ owner: owner_id }).exec();
+  }
+
   async updateCat(id: string, updateCatDto: UpdateCatDto): Promise<Cat> {
     const updatedCat = await this.catModel
       .findByIdAndUpdate({ _id: id }, updateCatDto, {

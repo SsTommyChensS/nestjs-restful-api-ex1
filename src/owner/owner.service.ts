@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CatService } from 'src/cat/cat.service';
 import { CreateOwnerDto } from 'src/dto/owner/create-owner.dto';
 import { UpdateOwnerDto } from 'src/dto/owner/update-owner.dto';
 import { Owner, OwnerDocument } from 'src/schemas/owner.schema';
@@ -10,6 +11,7 @@ export class OwnerService {
   constructor(
     @InjectModel(Owner.name)
     private readonly ownerModel: Model<OwnerDocument>,
+    private readonly catService: CatService,
   ) {}
 
   async createOwner(createOwnerDto: CreateOwnerDto): Promise<Owner> {
@@ -56,6 +58,8 @@ export class OwnerService {
       .findByIdAndRemove({ _id: id })
       .exec();
     if (deletedOwner) {
+      //Remove cats that these owner have.
+      this.catService.deleteCatsByOwner(id);
       return deletedOwner;
     }
     throw new HttpException('Owner not found to remove', HttpStatus.NOT_FOUND);
