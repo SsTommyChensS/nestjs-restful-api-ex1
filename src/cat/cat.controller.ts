@@ -36,6 +36,12 @@ export class CatController {
     return this.catService.findOneCat(id);
   }
 
+  @ApiOperation({ summary: 'Find cats by owner id' })
+  @Get('/find-by-owner/:owner_id')
+  async findCatsByOwner(@Param('owner_id') owner_id: string): Promise<Cat[]> {
+    return this.catService.findCatsByOwner(owner_id);
+  }
+
   @ApiOperation({ summary: 'Delete cat by id' })
   @Delete('/delete/:id')
   async deleteCat(@Param('id') id: string): Promise<Cat> {
