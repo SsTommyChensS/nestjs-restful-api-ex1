@@ -5,6 +5,7 @@ import { CatController } from './cat.controller';
 import { CatService } from './cat.service';
 
 @Module({
+  exports: [CatService],
   imports: [
     MongooseModule.forFeature([
       {
