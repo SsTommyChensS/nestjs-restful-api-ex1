@@ -20,8 +20,8 @@ export class CatController {
 
   @ApiOperation({ summary: 'Create cat' })
   @Post('/create')
-  async createCat(@Body() createCatDto: CreateCatDto) {
-    await this.catService.createCat(createCatDto);
+  async createCat(@Body() createCatDto: CreateCatDto): Promise<Cat> {
+    return this.catService.createCat(createCatDto);
   }
 
   @ApiOperation({ summary: 'Find all cats' })

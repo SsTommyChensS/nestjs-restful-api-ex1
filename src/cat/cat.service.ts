@@ -12,12 +12,13 @@ export class CatService {
   ) {}
 
   async createCat(createCatDto: CreateCatDto): Promise<Cat> {
-    const createCat = await this.catModel.create(createCatDto);
-    return createCat;
+    const createdCat = await this.catModel.create(createCatDto);
+    //console.log(createdCat);
+    return createdCat;
   }
 
   async findAllCat(): Promise<Cat[]> {
-    const cats = await this.catModel.find().exec();
+    const cats = await this.catModel.find().populate('owner').exec();
     if (cats.length == 0) {
       throw new HttpException(
         'The list of existing cats is empty',
@@ -28,7 +29,7 @@ export class CatService {
   }
 
   async findOneCat(id: string): Promise<Cat> {
-    const cat = await this.catModel.findOne({ _id: id });
+    const cat = await this.catModel.findOne({ _id: id }).populate('owner');
     if (cat) {
       return cat;
     }
