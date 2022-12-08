@@ -36,6 +36,17 @@ export class CatService {
     throw new HttpException('Cat not found', HttpStatus.NOT_FOUND);
   }
 
+  async findCatsByOwner(owner_id: string): Promise<Cat[]> {
+    const cats = await this.catModel.find({ owner: owner_id }).exec();
+    if (cats.length == 0) {
+      throw new HttpException(
+        'This owner do not have any cats',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return cats;
+  }
+
   async deleteCat(id: string): Promise<Cat> {
     const deletedCat = await this.catModel
       .findByIdAndRemove({ _id: id })
