@@ -1,6 +1,9 @@
 <h1>Hi this is my example demo rest-api using NestJS and Mongoose</h1>
 <ul>
   <li>This example is about Cat API and I will add some relations after (In process)</li>
+    <ul>
+      <li>Update: Add Owner collection and add the relationship between owner - cat (one to many)</li>
+    </ul>
   <li>Technologies used: NestJS, Mongoose (MongoDB Data Object Model), Swagger UI (API Document)</li>
   <li>How to start NestJS project</li>
   <ul>
